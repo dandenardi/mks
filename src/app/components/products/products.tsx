@@ -18,24 +18,26 @@ interface Product {
 
 interface ProductCardProps {
     product: Product,
-    addToCart: (id: number, quantity: number, value: number) => void;
+    addToCart: (id: number, name: string, photo: string, quantity: number, value: number) => void;
 }
 
 export interface CartItem {
     id: number;
+    name: string;
+    photo: string;
     quantity: number;
     value: number;
 
 }
 
 
-export const addToCart = (id: number, quantity: number, value: number, cart: CartItem[]): void => {
+export const addToCart = (id: number, name: string, photo: string, quantity: number, value: number, cart: CartItem[]): void => {
     const existingItem = cart.find(item => item.id === id);
 
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
-        cart.push({ id, quantity, value });
+        cart.push({ id, name, photo, quantity, value });
     }
 };
 
@@ -66,14 +68,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
                 <h3 className={styles.title}>{product.name}</h3>
                 <p className={styles.price}>R$ {removeAfterDot(product.price)}</p>
             </CardHeader>
-            <CardFooter className={styles.productFooter} onClick={() => addToCart(product.id, 1, product.price)}>
+            <CardFooter className={styles.productFooter} onClick={() => addToCart(product.id, product.name, product.photo, 1, product.price)}>
                 <p>Adicionar ao carrinho</p>
             </CardFooter>
         </Card>
     )
 }
 
-const ProductList: React.FC<{ products: Product[]; addToCart: (id: number, quantity: number, value: number) => void }> = ({ products, addToCart }) => {
+const ProductList: React.FC<{ products: Product[]; addToCart: (id: number, name: string, photo: string, quantity: number, value: number) => void }> = ({ products, addToCart }) => {
 
 
     return (

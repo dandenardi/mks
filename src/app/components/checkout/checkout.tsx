@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Button, Image, CardFooter } from '@nextui-org/react';
+import { motion } from 'framer-motion';
 import styles from './checkout.module.scss';
 
 interface CartItem {
     id: number;
+    name: string;
+    photo: string;
     quantity: number;
     value: number;
 }
@@ -38,29 +41,53 @@ const Checkout: React.FC<{ cartItems?: CartItem[]; onClose: () => void }> = ({ c
 
     };
 
+    const cartCost = () => {
+        return cart.reduce((total, item) => total + item.quantity * item.value, 0);
+    }
+
     return (
-        <div className={`${styles.checkout} ${isVisible ? styles.visible : ''}`}>
-            <Card>
+        <motion.div className={`${styles.checkout} ${isVisible ? styles.visible : ''}`}>
+            <Card className={styles.checkoutCard}>
                 <CardHeader>
                     <h3>Carrinho de Compras</h3>
                     <Button onClick={onClose}>Fechar</Button>
 
                 </CardHeader>
-                <CardBody>
+                <CardBody className={styles.productCardBody}>
                     <ul>
                         {cart && cart.map(item => (
-                            <li key={item.id}>
-                                <p>Produto ID: {item.id}</p>
-                                <p>Quantidade: {item.quantity}</p>
-                                <Button onClick={() => handleAdjustQuantity(item.id, item.quantity + 1)}>+</Button>
-                                <Button onClick={() => handleAdjustQuantity(item.id, item.quantity - 1)}>-</Button>
-                                <Button onClick={() => handleRemoveItem(item.id)}>Remover</Button>
+                            <li key={item.id} className={styles.product}>
+                                <Image
+                                    src={item.photo}
+                                    width="100"
+                                    height='100'
+                                    alt={`image of ${item.name}`}
+                                />
+                                <p>{item.name}</p>
+                                <section className={styles.quantityControl}>
+                                    <Button onClick={() => handleAdjustQuantity(item.id, item.quantity + 1)}>+</Button>
+                                    <p>{item.quantity}</p>
+                                    <Button onClick={() => handleAdjustQuantity(item.id, item.quantity - 1)}>-</Button>
+                                </section>
+                                <section><p className={styles.price}>R$ ${item.value}</p></section>
+
+
+
+                                <Button className={styles.removeButton} onClick={() => handleRemoveItem(item.id)}>Remover</Button>
                             </li>
                         ))}
                     </ul>
                 </CardBody>
+
+                <CardFooter className={styles.endBuy}>
+                    <section className={styles.sumUp}>
+                        <p>Total: </p><p>R${cartCost()}</p>
+                    </section>
+
+                    <Button className={styles.finishButton}>Finalizar Compra </Button>
+                </CardFooter>
             </Card>
-        </div>
+        </motion.div>
     )
 };
 

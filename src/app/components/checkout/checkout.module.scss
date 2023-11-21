@@ -2,16 +2,85 @@
     position: fixed;
     top: 0;
     right: -33%;
+    display: flex;
+    flex-direction: column;
 
     height: 100vh;
     width: 33%;
-    background-color: white;
+    color: white;
     overflow: hidden;
     transition: right 0.3s ease-in-out;
 
+    background-color: blue;
+
+}
+
+.checkoutCard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.product {
+    margin: 1%;
+    width: 100%;
+    color: #2C2C2C;
+    font-weight: 400;
+    height: fit-content;
+    background-color: #F9F9F9;
+    box-shadow: 0px 2px 8px #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.productCardBody {
+    flex: 1;
+}
+
+
+.quantityControl {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.price {
+    background-color: #373737;
+    width: 80%;
+    color: white;
+    border-radius: 5px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.endBuy {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+
+
+}
+
+.sumUp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .visible {
     right: 0;
+    transition: right 0.3s ease-in-out;
 
 }

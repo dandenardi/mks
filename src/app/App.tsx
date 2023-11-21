@@ -20,8 +20,8 @@ export default function App() {
         return res.json();
     }
 
-    const handleCart = (id: number, quantity: number, value: number): void => {
-        addToCart(id, quantity, value, cart);
+    const handleCart = (id: number, name: string, photo: string, quantity: number, value: number): void => {
+        addToCart(id, name, photo, quantity, value, cart);
         setCart([...cart]);
 
     }
