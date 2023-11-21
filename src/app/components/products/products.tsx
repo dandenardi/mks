@@ -81,7 +81,7 @@ const ProductList: React.FC<{ products: Product[]; addToCart: (id: number, name:
     return (
         <div className={styles.productsGrid}>
             {products.map((product) => (
-                <ProductCard product={product} addToCart={addToCart} />
+                <ProductCard key={product.id} product={product} addToCart={addToCart} />
             ))}
         </div>
     )
